@@ -16,4 +16,4 @@ pkcs8 = "0.10.2"
 rand = "0.8.5"
 rand_core = "0.6.4"
 rsa = { version = "0.9.2", features = ["pem"]}
-wnfs = { path = "../rs-wnfs/wnfs" }
+wnfs = { git = "https://github.com/banyancomputer/rs-wnfs.git", branch = "rsa" }
