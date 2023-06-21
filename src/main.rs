@@ -3,6 +3,7 @@ use wnfs::private::keys::aes::AesKey;
 use wnfs::private::TemporalKey;
 use wnfs::common::utils::get_random_bytes;
 use base64::{Engine as _, engine::general_purpose};
+use std::fs;
 
 // Some test keys I generated using `tomb-www`:
 const SPKI_STRING: &str = "MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEApgs5TkpXDqjye2KoU1ERu8QRs8lHkJb/YULlnPR3JuAUfdpj6TwifLZTFF3Duh5CRUXEa0p37EzRaA3rXCfBSldD4sm1uZ8xpc+wlNT0ZufRHY2PaFreXECDo1HtFMsaB6eGKF2KY3RhYlqUrmUYomm3M/G8qBG1TnvICZJxFuCpzE7Wrh3Bxw5BRzuclaatpa3bnJ/6NDmBqFsZvanlrKKoSdKsa/t274UXoWuAFtjRumbJYnu7o3QkVwFjCREXd2oDVu9EnrqRHr11zE9KH8wh2qk0dbliPXvB9BlwBZHLhWd7bhCtdhf8T+tWVfprkM74h91SRfZTLa66B4PUcphte4gw4hCaboZIedLG0En45shMl3/rYh+YEYoJJ18qBziFUMq+CrWzTPuvdMyWBrbimy8TEkzR83UXwpncPkDh1qJJHyw6PGhhXyiYPtNwXnrkr5Bl1NRs3rfbi7Rk4mbTZJ92LFtbDNAoZnZXNmrq+ZQZ/lLJUqd1G2xt1yaFAgMBAAE=";
@@ -25,6 +26,9 @@ async fn main() {
         },
     };
     let pub_key = priv_key.get_public_key();
+
+    fs::remove_file("private_key.pem").unwrap();
+    fs::remove_file("public_key.pem").unwrap();
 
     println!("Generating test key...");
     let aes_key = AesKey::new(get_random_bytes(&mut rand_core::OsRng));
