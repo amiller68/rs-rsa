@@ -41,9 +41,6 @@ async fn main() {
 
     println!("Encrypting test key with RSA public key...");
     let enc_temporal_key = pub_key.encrypt(&temporal_key.0.as_bytes()).await.unwrap();
-    let base64_enc_temporal_key = general_purpose::STANDARD_NO_PAD.encode(&enc_temporal_key);
-
-    println!("Base 64 encoded encrypted key: {}", base64_enc_temporal_key);
 
     println!("Decrypting test key with RSA private key...");
     let dec_temporal_key_vec = priv_key.decrypt(&enc_temporal_key).await.unwrap();
